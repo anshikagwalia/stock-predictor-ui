@@ -1,0 +1,124 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FBF8F0; /* Off-white background */
+}
+
+header {
+    background-color: #092f21; /* Emerald Green for header */
+    color: #fff;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo h1 {
+    font-size: 1.8em;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+header nav ul li {
+    display: inline;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hero {
+    background-color: #092f21; /* Emerald Green for hero section */
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.predictions, .charts, .about {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.predictions .prediction-card {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    width: 250px;
+}
+
+#chart-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+footer {
+    background-color: #092f21; /* Emerald Green for footer */
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+}
+
+/* Callout section */
+.callout {
+    background-color: #8E44AD; /* Deep Burgundy for callout */
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.callout h3 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+/* Button styles */
+button {
+    background-color: #F39C12; /* Gold color for buttons */
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #D68910; /* Slightly darker gold on hover */
+}
+
+/* Links */
+a {
+    color: #8E44AD; /* Deep Burgundy for links */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    header nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .prediction-card {
+        width: 100%;
+        max-width: 300px;
+    }
+}
