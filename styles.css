@@ -71,7 +71,7 @@ footer {
 
 /* Callout section */
 .callout {
-    background-color: #8E44AD; /* Deep Burgundy for callout */
+    background-color: #330f39; /* Deep Burgundy for callout */
     color: #fff;
     padding: 15px;
     border-radius: 10px;
@@ -102,7 +102,7 @@ button:hover {
 
 /* Links */
 a {
-    color: #8E44AD; /* Deep Burgundy for links */
+    color: #330f39; /* Deep Burgundy for links */
     text-decoration: none;
 }
 
