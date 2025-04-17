@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Prediction Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <h1>StockPredict</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#predictions">Predictions</a></li>
+                <li><a href="#charts">Charts</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+
+          
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h2>Welcome to the Stock Prediction Platform</h2>
+        <p>Get AI-driven stock analysis and predictions based on historical, real-time data, and sentiment analysis.</p>
+    </section>
+
+    <!-- Stock Prediction Section -->
+    <section id="predictions" class="predictions">
+        <h2>Stock Prediction</h2>
+        <div class="prediction-card buy">
+            <h3>Stock: Tesla (TSLA)</h3>
+            <p><strong>Prediction:</strong> <span class="status">Buy 🔼</span></p>
+            <p><strong>Risk Level:</strong> Medium</p>
+        </div>
+        <div class="prediction-card hold">
+            <h3>Stock: Apple (AAPL)</h3>
+            <p><strong>Prediction:</strong> <span class="status">Hold ⏸</span></p>
+            <p><strong>Risk Level:</strong> Low</p>
+        </div>
+        <!-- Gradio Chatbot Embed -->
+        <div class="chatbot-container">
+            <h3>Ask the AI Chatbot</h3>
+            <iframe src="https://fd28690b0c1e6e5c2a.gradio.live/" width="100%" height="600" frameborder="0"></iframe>
+        </div>
+    </section>
+    <!-- Stock Chart Section -->
+    <div id="chart-container">
+        <!-- Optional filter buttons -->
+        <div class="filter-buttons">
+            <button onclick="fetchStockData(7)">Last 7 Days</button>
+            <button onclick="fetchStockData(30)">Last 30 Days</button>
+        </div>
+    
+        <!-- Loading spinner -->
+        <div id="chart-loader" class="loader">Loading chart...</div>
+    
+        <!-- Chart canvas -->
+        <canvas id="stock-chart" style="display:none;"></canvas>
+    </div>
+    
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2>About Us</h2>
+        <p>We use advanced machine learning models and real-time data to provide accurate stock predictions, helping you make informed investment decisions.</p>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2025 StockPredict. All rights reserved.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
