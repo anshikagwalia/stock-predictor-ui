@@ -1,95 +1,120 @@
-const ctx = document.getElementById('stock-chart').getContext('2d');
+// === Stock Ticker Scroll Script ===
+
 const apiKey = 'J8cxTzOYjRHQznZeTWAhTN1SeiNokJpU';
-const symbol = 'TSLA';
+const popularStocks = ['AAPL', 'TSLA', 'MSFT', 'GOOGL', 'AMZN', 'META'];
 
-function showLoader() {
-    document.getElementById('chart-loader').style.display = 'block';
-    document.getElementById('stock-chart').style.display = 'none';
+async function fetchStockPrices() {
+    try {
+        const responses = await Promise.all(
+            popularStocks.map(symbol =>
+                fetch(`https://financialmodelingprep.com/api/v3/quote-short/${symbol}?apikey=${apiKey}`)
+            )
+        );
+
+        const data = await Promise.all(responses.map(res => res.json()));
+
+        const results = data.map((item, index) => {
+            const stock = item[0]; // each API call returns an array with one object
+            return `${popularStocks[index]}: $${stock.price.toFixed(2)}`;
+        });
+
+        const tickerElement = document.getElementById('stock-ticker');
+        tickerElement.innerHTML = results.join(' ⚫ ');
+    } catch (error) {
+        console.error("Error fetching stock prices:", error);
+    }
 }
+document.addEventListener("DOMContentLoaded", function () {
+    const tips = [
+        "💡 Did you know? The stock market tends to perform better in the winter months.",
+        "📊 A diversified portfolio helps reduce risk!",
+        "📈 Historically, the S&P 500 returns about 10% annually.",
+        "💸 Never invest money you can't afford to lose.",
+        "🔍 Research before you invest in any stock!"
+    ];
 
-function hideLoader() {
-    document.getElementById('chart-loader').style.display = 'none';
-    document.getElementById('stock-chart').style.display = 'block';
-}
+    let tipIndex = 0;
+    const funFactElement = document.getElementById("fun-fact");
 
-async function fetchStockData() {
-    showLoader(); // Show the loader during the fetch
+    function rotateTip() {
+        funFactElement.style.opacity = 0; // Fade out
+        setTimeout(() => {
+            funFactElement.textContent = tips[tipIndex]; // Change the tip text
+            funFactElement.style.opacity = 1; // Fade in
+            tipIndex = (tipIndex + 1) % tips.length; // Update the index, looping back to the first tip
+        }, 500); // Time for fade-out before content change
+    }
 
-    const response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?serietype=line&apikey=${apiKey}`);
-    const data = await response.json();
+    setInterval(rotateTip, 5000); // Call rotateTip every 5 seconds
+    rotateTip(); // Start immediately when the page loads
+});
+document.addEventListener("DOMContentLoaded", function() {
+    const predictions = [
+        { stock: "Tesla (TSLA)", prediction: "Buy 🔼", risk: "Medium" },
+        { stock: "Apple (AAPL)", prediction: "Hold ⏸", risk: "Low" },
+        { stock: "Microsoft (MSFT)", prediction: "Sell 🔽", risk: "High" },
+        { stock: "Google (GOOGL)", prediction: "Buy 🔼", risk: "Medium" },
+        { stock: "Amazon (AMZN)", prediction: "Hold ⏸", risk: "Low" }
+    ];
 
-    // Ensure the data fetched is recent; slice the last 30 days from the data
-    const historical = data.historical.slice(-30); // Take the last 30 data points
-    const labels = historical.map(point => point.date).reverse();  // Reverse to have the latest data first
-    const prices = historical.map(point => point.close).reverse();
+    const predictionContainer = document.getElementById("prediction-container");
 
-    // Create the chart
-    const stockChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: `Stock Price (${symbol})`,
-                data: prices,
-                borderColor: 'rgb(75, 192, 192)',
-                fill: false,
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: false
-                }
-            }
-        }
+    // Function to create a prediction card
+    function createPredictionCard(stock, prediction, risk) {
+        const card = document.createElement("div");
+        card.classList.add("prediction-card");
+
+        card.innerHTML = `
+            <h3>${stock}</h3>
+            <p><strong>Prediction:</strong> <span class="status">${prediction}</span></p>
+            <p><strong>Risk Level:</strong> ${risk}</p>
+        `;
+        
+        // Append the card to the container
+        predictionContainer.appendChild(card);
+    }
+
+    // Generate prediction cards
+    predictions.forEach(prediction => {
+        createPredictionCard(prediction.stock, prediction.prediction, prediction.risk);
     });
 
-    hideLoader(); // Hide loader after chart is rendered
-}
+});
 
-fetchStockData();
-let stockChart; // make chart accessible globally
+// Call the function when page loads
+fetchStockPrices();
 
-async function handleSearch() {
-    const symbol = document.getElementById('stockInput').value.toUpperCase();
-    if (!symbol) return;
+// Optional: refresh prices every 60 seconds
+setInterval(fetchStockPrices, 60000);
+// === Real-time Line Chart for TSLA ===
 
-    await fetchStockData(symbol);
-}
+const ctx = document.getElementById('live-chart').getContext('2d');
+let timestamps = [];
+let prices = [];
 
-async function fetchStockData(symbol) {
-    showLoader(); // if using a loader
-
-    const response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/${symbol}?serietype=line&apikey=${apiKey}`);
-    const data = await response.json();
-
-    const historical = data.historical?.slice(-30).reverse();
-    const labels = historical.map(point => point.date);
-    const prices = historical.map(point => point.close);
-
-    if (stockChart) stockChart.destroy(); // destroy previous chart
-
-    stockChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: `Stock Price (${symbol})`,
-                data: prices,
-                borderColor: 'rgb(75, 192, 192)',
-                fill: false
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: false
-                }
+const liveChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: timestamps,
+        datasets: [{
+            label: 'TSLA Price (USD)',
+            data: prices,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.4
+        }]
+    },
+    options: {
+        responsive: true,
+        animation: false,
+        scales: {
+            x: {
+                title: { display: true, text: 'Time' }
+            },
+            y: {
+                beginAtZero: false,
+                title: { display: true, text: 'Price ($)' }
             }
         }
-    });
+    }
+});
 
-    hideLoader(); // if using a loader
-}
