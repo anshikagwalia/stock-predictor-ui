@@ -46,23 +46,23 @@
         <!-- Gradio Chatbot Embed -->
         <div class="chatbot-container">
             <h3>Ask the AI Chatbot</h3>
-            <iframe src="https://fd28690b0c1e6e5c2a.gradio.live/" width="100%" height="600" frameborder="0"></iframe>
+            <iframe src="https://5c7a2aec81726e399c.gradio.live/" width="100%" height="600" frameborder="0"></iframe>
         </div>
     </section>
-    <!-- Stock Chart Section -->
-    <div id="chart-container">
-        <!-- Optional filter buttons -->
-        <div class="filter-buttons">
-            <button onclick="fetchStockData(7)">Last 7 Days</button>
-            <button onclick="fetchStockData(30)">Last 30 Days</button>
+
+    <section id="chart-section">
+        <h2>Stock Chart</h2>
+        <input type="text" id="stock-input" placeholder="Enter stock ticker (e.g., AAPL)" />
+        <button onclick="loadStockChart()">Load Chart</button>
+        <canvas id="stockChartCanvas"></canvas>
+      </section>
+      
+      <div class="ticker-container">
+        <div class="ticker" id="stock-ticker">
+          <!-- Prices will go here -->
         </div>
-    
-        <!-- Loading spinner -->
-        <div id="chart-loader" class="loader">Loading chart...</div>
-    
-        <!-- Chart canvas -->
-        <canvas id="stock-chart" style="display:none;"></canvas>
-    </div>
+      </div>
+      
     
 
     <!-- About Section -->
