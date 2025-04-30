@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Prediction Platform</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!-- Header Section -->
@@ -16,7 +17,7 @@
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#predictions">Predictions</a></li>
-                <li><a href="#charts">Charts</a></li>
+                <!--<li><a href="#charts">Charts</a></li>-->
                 <li><a href="#about">About</a></li>
             </ul>
         </nav>
@@ -29,41 +30,52 @@
         <h2>Welcome to the Stock Prediction Platform</h2>
         <p>Get AI-driven stock analysis and predictions based on historical, real-time data, and sentiment analysis.</p>
     </section>
+    <div class="ticker-container">
+        <div class="ticker" id="stock-ticker">
+          <!-- Prices will go here -->
+        </div>
+      </div>
+
 
     <!-- Stock Prediction Section -->
     <section id="predictions" class="predictions">
-        <h2>Stock Prediction</h2>
-        <div class="prediction-card buy">
-            <h3>Stock: Tesla (TSLA)</h3>
-            <p><strong>Prediction:</strong> <span class="status">Buy 🔼</span></p>
-            <p><strong>Risk Level:</strong> Medium</p>
+    <div class="fun-fact-container">
+        <div id="fun-fact-banner">
+            <p id="fun-fact">💡 Loading tip...</p>
         </div>
-        <div class="prediction-card hold">
-            <h3>Stock: Apple (AAPL)</h3>
-            <p><strong>Prediction:</strong> <span class="status">Hold ⏸</span></p>
-            <p><strong>Risk Level:</strong> Low</p>
+    </div>
+    <h2>Stock Prediction</h2>
+    <div id="prediction-container">
+        <!-- Stock prediction cards will go here -->
+    </div>
+</section>
+
+    <!-- Fun Fact Rotator -->
+        <div class="fun-fact-container">
+            <p id="fun-fact">💡 Loading tip...</p>
         </div>
+
         <!-- Gradio Chatbot Embed -->
         <div class="chatbot-container">
             <h3>Ask the AI Chatbot</h3>
-            <iframe src="https://5596543248214fc5f3.gradio.live/" width="100%" height="600" frameborder="0"></iframe>
+            <iframe src="https://5c7a2aec81726e399c.gradio.live/" width="100%" height="600" frameborder="0"></iframe>
         </div>
     </section>
-    <!-- Stock Chart Section -->
-    <div id="chart-container">
-        <!-- Optional filter buttons -->
-        <div class="filter-buttons">
-            <button onclick="fetchStockData(7)">Last 7 Days</button>
-            <button onclick="fetchStockData(30)">Last 30 Days</button>
-        </div>
-    
-        <!-- Loading spinner -->
-        <div id="chart-loader" class="loader">Loading chart...</div>
-    
-        <!-- Chart canvas -->
-        <canvas id="stock-chart" style="display:none;"></canvas>
-    </div>
-    
+
+    <div class="chart-section">
+        <label for="stock-select">Choose a stock:</label>
+        <select id="stock-select">
+          <option value="AAPL">Apple (AAPL)</option>
+          <option value="TSLA">Tesla (TSLA)</option>
+          <option value="MSFT">Microsoft (MSFT)</option>
+          <option value="GOOGL">Google (GOOGL)</option>
+          <option value="AMZN">Amazon (AMZN)</option>
+        </select>
+      
+        <canvas id="stock-chart" width="600" height="400"></canvas>
+      </div>
+      
+      
 
     <!-- About Section -->
     <section id="about" class="about">
