@@ -41,25 +41,103 @@ header nav ul li a {
     text-align: center;
     padding: 50px 20px;
 }
-
+.ticker-container {
+    background-color: #092f21; /* emerald green */
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px 0;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+  }
+  
+  .ticker {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll-left 20s linear infinite;
+  }
+  
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
 .predictions, .charts, .about {
     text-align: center;
     padding: 40px 20px;
 }
 
-.predictions .prediction-card {
-    background-color: #fff;
+.prediction-card {
+    background-color: #f9f9f9;
     padding: 20px;
-    margin: 20px;
+    margin: 10px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: inline-block;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
     width: 250px;
+    transition: transform 0.3s ease;
 }
 
-#chart-container {
-    width: 80%;
-    margin: 0 auto;
+.prediction-card h3 {
+    font-size: 18px;
+    color: #333;
+}
+
+.prediction-card p {
+    font-size: 16px;
+    color: #555;
+}
+
+.status {
+    font-weight: bold;
+}
+
+.prediction-card:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+#prediction-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.chart-section {
+    text-align: center;
+    margin: 40px auto;
+  }
+  
+  #stock-select {
+    padding: 8px;
+    font-size: 1em;
+    margin-bottom: 20px;
+  }
+  
+ /* Centering the chatbot container */
+.chatbot-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* Center text inside */
+    margin: 40px auto; /* Adds some space from top and centers the section */
+    max-width: 900px; /* Optional: Set a max width for the container */
+}
+
+.chatbot-container h3 {
+    font-size: 1.8em;
+    margin-bottom: 20px; /* Adds space between the header and iframe */
+}
+
+iframe {
+    width: 100%;
+    height: 600px;
+    border: none; /* Optional: removes border around the iframe */
 }
 
 footer {
@@ -121,4 +199,30 @@ a:hover {
         width: 100%;
         max-width: 300px;
     }
+}
+.fun-fact-container {
+    position: relative;
+    width: 100%;
+    margin-top: 20px; /* Add some space between sections */
+}
+
+#fun-fact-banner {
+    background-color: #f4f4f4; /* Light background color */
+    padding: 15px 30px; /* Add padding around the text */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow to make it stand out */
+    max-width: 80%; /* Limit the width to keep it neat */
+    margin: 0 auto; /* Center the banner */
+    transition: background-color 0.3s ease; /* Smooth background color change */
+}
+
+#fun-fact {
+    font-size: 18px; /* Adjust font size */
+    text-align: center; /* Center the text */
+    margin: 0;
+    color: #333; /* Dark text color */
+}
+
+#fun-fact-banner:hover {
+    background-color: #e0e0e0; /* Slightly change background on hover */
 }
